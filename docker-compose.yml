@@ -7,3 +7,23 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
+    networks:
+      - docker_dbserver_default
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - docker_dbserver_default
+
+volumes:
+  mongodb_data:
+
+networks:
+  docker_dbserver_default:
+    external: true
